@@ -619,7 +619,6 @@ class Sam2VideoSegmentationAddPoints:
                     image.permute(0, 3, 1, 2).contiguous(), H, W, device=device
                 )
             else:
-                print("Using previous inference state")
                 B = prev_inference_state["num_frames"]
                 self.inference_state = prev_inference_state["inference_state"]
             _, out_obj_ids, out_mask_logits = model.add_new_points(
@@ -689,7 +688,6 @@ class Sam2VideoSegmentation:
             for out_frame_idx, out_obj_ids, out_mask_logits in model.propagate_in_video(
                 inference_state
             ):
-                print("out_mask_logits", out_mask_logits.shape)
                 _, _, H, W = out_mask_logits.shape
                 # Combine masks for all object IDs in the frame
                 combined_mask = np.zeros((H, W), dtype=np.uint8)
